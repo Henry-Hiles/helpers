@@ -7,9 +7,13 @@ export const spawnAsync = (
         stdio: "inherit",
     }
 ): Promise<void> =>
-    new Promise((resolve, reject) => {
+    new Promise(async (resolve, reject) => {
         const cmdParts = cmd.split(" ")
-        const cp = spawn(cmdParts[0], cmdParts.slice(1), options)
+        const splitCmd = [
+            ...(await getCommand(cmdParts[0])).split(" "),
+            ...cmdParts.slice(1),
+        ]
+        const cp = spawn(splitCmd[0], splitCmd.slice(1), options)
 
         cp.on("error", reject)
         cp.on("close", resolve)
@@ -17,9 +21,25 @@ export const spawnAsync = (
 
 export const execAsync = async (
     cmd: string,
-    options?: ExecOptions
+    options?: ExecOptions,
+    skipCheck = false
 ): Promise<string> => {
-    const { stdout, stderr } = await promisify(exec)(cmd, options)
+    const splitCmd = cmd.split(" ")
+    const { stdout, stderr } = await promisify(exec)(
+        [
+            skipCheck ? splitCmd[0] : await getCommand(splitCmd[0]),
+            ...splitCmd.slice(1),
+        ].join(" "),
+        options
+    )
     if (stderr) throw stderr
     return stdout as string
+}
+
+export const getCommand = async (native: string): Promise<string> => {
+    try {
+        return await execAsync(`command -v ${native}`, undefined, true)
+    } catch {
+        return `flatpak-run --host ${native}`
+    }
 }
