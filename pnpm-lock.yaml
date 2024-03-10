@@ -15,8 +15,8 @@ dependencies:
     specifier: ^8.0.1
     version: 8.0.1
   quados:
-    specifier: link:../tools
-    version: link:../tools
+    specifier: github:Quad-Linux/tools
+    version: github.com/Quad-Linux/tools/5fc9c1b647a186a33ad377180dec3e5a7281b312
 
 packages:
 
@@ -46,6 +46,10 @@ packages:
   /cli-spinners@2.9.2:
     resolution: {integrity: sha512-ywqV+5MmyL4E7ybXgKys4DugZbX0FC6LnwrhjuykIjnK9k8OQacQ7axGKnjDXWNhns0xot3bZI5h55H8yo9cJg==}
     engines: {node: '>=6'}
+    dev: false
+
+  /dataclass@2.1.1:
+    resolution: {integrity: sha512-UNG2qao2GaHrnVQtarekOjUt1BvU6vt1OUnYSp+3BuFNs+iKjiBmIz2cabXtP2ZjthM8n3ox1lRKrUxp4SKG9A==}
     dev: false
 
   /emoji-regex@10.3.0:
@@ -142,4 +146,14 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    dev: false
+
+  github.com/Quad-Linux/tools/5fc9c1b647a186a33ad377180dec3e5a7281b312:
+    resolution: {tarball: https://codeload.github.com/Quad-Linux/tools/tar.gz/5fc9c1b647a186a33ad377180dec3e5a7281b312}
+    name: quados
+    version: 1.0.0
+    dependencies:
+      '@quados/helpers': 'link:'
+      '@types/node': 20.11.25
+      dataclass: 2.1.1
     dev: false
