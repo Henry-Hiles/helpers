@@ -1,6 +1,11 @@
 import chalk from "chalk"
 import { Config } from "quados"
 import { execAsync } from "./cli"
+import { homedir } from "os"
+import { writeFile } from "fs/promises"
+import { unlink } from "fs/promises"
+import { join } from "path"
+import parseList from "./parseList"
 
 const getInstalled = async () =>
     (await flatpakExec("list --app --columns application"))
@@ -13,23 +18,49 @@ export const install = async (config: Config) => {
         (pkg) => !installedFlatpaks.includes(pkg.id)
     )
 
-    if (pkgsToInstall.length)
+    if (pkgsToInstall.length) {
         await flatpakExecNoninteractive(
             `install ${pkgsToInstall.map((pkg) => pkg.id).join(" ")}`
         )
+
+        for (const pkg of pkgsToInstall) {
+            const toWrite = `#!/usr/bin/env bash\nexec flatpak run ${pkg.id} "$@"`
+            await writeFile(join(homedir(), ".local", "bin", pkg.name), toWrite, { mode: 0o755 })
+        }
+    }
+
+
 }
 
 export const uninstall = async (config: Config) => {
     const installedFlatpaks = await getInstalled()
-    const packagesToUninstall = installedFlatpaks.filter(
-        (id) => !config.pkgs.find((pkg) => pkg.id == id)
+    const idsToUninstall = installedFlatpaks.filter(
+        (id) =>
+            id != "com.henryhiles.quados.Quad" &&
+            !config.pkgs.find((pkg) => pkg.id == id)
     )
 
-    if (packagesToUninstall.length)
-        await flatpakExecNoninteractive(
-            `uninstall ${packagesToUninstall.join(" ")}`
+    const packagesToUninstall = parseList(
+        await execAsync(
+            `flatpak remote-ls --system --columns=name,application,commit,origin | grep -E "${idsToUninstall.join(
+                "|"
+            )}"`
         )
+    )
+
+    if (Object.keys(packagesToUninstall).length) {
+        await flatpakExecNoninteractive(
+            `uninstall ${Object.values(packagesToUninstall)
+                .map((pkg) => pkg.id)
+                .join(" ")}`
+        )
+
+        for (const pkg in packagesToUninstall) {
+            await unlink(join(homedir(), ".local", "bin", packagesToUninstall[pkg].name))
+        }
+    }
 }
+
 
 export const upgrade = async (config: Config) => {
     if (config.pkgs.length) {
