@@ -1,10 +1,8 @@
 import chalk from "chalk"
-import { Config } from "quados"
 import { execAsync } from "./cli"
 import { homedir } from "os"
 import { writeFile } from "fs/promises"
-import { unlink } from "fs/promises"
-import { join } from "path"
+import { unlink, join } from "fs/promises"
 import parseList from "./parseList"
 
 const getInstalled = async () =>
@@ -28,8 +26,6 @@ export const install = async (config: Config) => {
             await writeFile(join(homedir(), ".local", "bin", pkg.name), toWrite, { mode: 0o755 })
         }
     }
-
-
 }
 
 export const uninstall = async (config: Config) => {
@@ -60,7 +56,6 @@ export const uninstall = async (config: Config) => {
         }
     }
 }
-
 
 export const upgrade = async (config: Config) => {
     if (config.pkgs.length) {
