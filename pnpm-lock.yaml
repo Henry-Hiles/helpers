@@ -6,7 +6,7 @@ settings:
 
 dependencies:
   '@types/node':
-    specifier: ^20.11.24
+    specifier: ^20.11.25
     version: 20.11.25
   chalk:
     specifier: ^5.3.0
@@ -16,7 +16,7 @@ dependencies:
     version: 8.0.1
   quados:
     specifier: github:Quad-Linux/tools
-    version: github.com/Quad-Linux/tools/5eda622d501c0f7feb91373c19e12440e0d1f872
+    version: github.com/Quad-Linux/tools/a00ff4e25a05fe0d66893d4b713381d7a58a9064
 
 packages:
 
@@ -148,23 +148,26 @@ packages:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: false
 
-  github.com/Quad-Linux/helpers/d27547dec90b8bc7ae24573377e7f9c7ba24fdb5:
-    resolution: {tarball: https://codeload.github.com/Quad-Linux/helpers/tar.gz/d27547dec90b8bc7ae24573377e7f9c7ba24fdb5}
+  github.com/Quad-Linux/helpers/36f405803085148d59d22a0f681addf309ce943b:
+    resolution: {tarball: https://codeload.github.com/Quad-Linux/helpers/tar.gz/36f405803085148d59d22a0f681addf309ce943b}
     name: '@quados/helpers'
     version: 1.0.0
+    requiresBuild: true
     dependencies:
       '@types/node': 20.11.25
       chalk: 5.3.0
       ora: 8.0.1
-      quados: github.com/Quad-Linux/tools/5eda622d501c0f7feb91373c19e12440e0d1f872
+      quados: github.com/Quad-Linux/tools/a00ff4e25a05fe0d66893d4b713381d7a58a9064
     dev: false
+    optional: true
 
-  github.com/Quad-Linux/tools/5eda622d501c0f7feb91373c19e12440e0d1f872:
-    resolution: {tarball: https://codeload.github.com/Quad-Linux/tools/tar.gz/5eda622d501c0f7feb91373c19e12440e0d1f872}
+  github.com/Quad-Linux/tools/a00ff4e25a05fe0d66893d4b713381d7a58a9064:
+    resolution: {tarball: https://codeload.github.com/Quad-Linux/tools/tar.gz/a00ff4e25a05fe0d66893d4b713381d7a58a9064}
     name: quados
     version: 1.0.0
     dependencies:
-      '@quados/helpers': github.com/Quad-Linux/helpers/d27547dec90b8bc7ae24573377e7f9c7ba24fdb5
       '@types/node': 20.11.25
       dataclass: 2.1.1
+    optionalDependencies:
+      '@quados/helpers': github.com/Quad-Linux/helpers/36f405803085148d59d22a0f681addf309ce943b
     dev: false

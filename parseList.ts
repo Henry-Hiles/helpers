@@ -12,6 +12,7 @@ export default (output: string): { pkg: Package } =>
                 id: value,
                 commit,
                 origin,
+                name: normalizedKey,
             })
             return result
         }, {} as { pkg: Package })
