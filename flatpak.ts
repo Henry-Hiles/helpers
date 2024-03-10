@@ -1,9 +1,11 @@
 import chalk from "chalk"
+import { Config } from "quados"
 import { execAsync } from "./cli"
 import { homedir } from "os"
 import { writeFile } from "fs/promises"
-import { unlink, join } from "fs/promises"
+import { unlink } from "fs/promises"
 import parseList from "./parseList"
+import { join } from "path"
 
 const getInstalled = async () =>
     (await flatpakExec("list --app --columns application"))
@@ -23,7 +25,11 @@ export const install = async (config: Config) => {
 
         for (const pkg of pkgsToInstall) {
             const toWrite = `#!/usr/bin/env bash\nexec flatpak run ${pkg.id} "$@"`
-            await writeFile(join(homedir(), ".local", "bin", pkg.name), toWrite, { mode: 0o755 })
+            await writeFile(
+                join(homedir(), ".local", "bin", pkg.name),
+                toWrite,
+                { mode: 0o755 }
+            )
         }
     }
 }
@@ -36,15 +42,15 @@ export const uninstall = async (config: Config) => {
             !config.pkgs.find((pkg) => pkg.id == id)
     )
 
-    const packagesToUninstall = parseList(
-        await execAsync(
-            `flatpak remote-ls --system --columns=name,application,commit,origin | grep -E "${idsToUninstall.join(
-                "|"
-            )}"`
+    if (Object.keys(idsToUninstall).length) {
+        const packagesToUninstall = parseList(
+            await execAsync(
+                `flatpak remote-ls --system --columns=name,application,commit,origin | grep -E "${idsToUninstall.join(
+                    "|"
+                )}"`
+            )
         )
-    )
 
-    if (Object.keys(packagesToUninstall).length) {
         await flatpakExecNoninteractive(
             `uninstall ${Object.values(packagesToUninstall)
                 .map((pkg) => pkg.id)
@@ -52,7 +58,9 @@ export const uninstall = async (config: Config) => {
         )
 
         for (const pkg in packagesToUninstall) {
-            await unlink(join(homedir(), ".local", "bin", packagesToUninstall[pkg].name))
+            await unlink(
+                join(homedir(), ".local", "bin", packagesToUninstall[pkg].name)
+            )
         }
     }
 }
