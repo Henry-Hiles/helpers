@@ -38,8 +38,9 @@ export const execAsync = async (
 
 export const getCommand = async (native: string): Promise<string> => {
     try {
-        return await execAsync(`command -v ${native}`, undefined, true)
+        await execAsync(`command -v ${native}`, undefined, true)
+        return native
     } catch {
-        return `flatpak-run --host ${native}`
+        return `flatpak-spawn --host ${native}`
     }
 }
