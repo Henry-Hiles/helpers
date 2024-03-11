@@ -44,3 +44,8 @@ export const getCommand = async (native: string): Promise<string> => {
         return `flatpak-spawn --host ${native}`
     }
 }
+
+export const flatpakExecNoninteractive = (cmd: string) =>
+    flatpakExec(`${cmd} --noninteractive`)
+
+export const flatpakExec = (cmd: string) => execAsync(`flatpak ${cmd} --system`)
