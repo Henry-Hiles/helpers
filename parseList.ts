@@ -1,4 +1,4 @@
-import { Package } from "quados"
+import { Package } from "@quados/models"
 
 export default (output: string): { pkg: Package } =>
     output
