@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@quados/models':
     specifier: github:Quad-Linux/models
-    version: github.com/Quad-Linux/models/79904e0ae7441f02207a3443c8358308dc700287
+    version: github.com/Quad-Linux/models/eae84f287ae4c4fcbfdab426bca6eca61eff13a3
   '@types/node':
     specifier: ^20.11.25
     version: 20.11.25
@@ -148,8 +148,8 @@ packages:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
     dev: false
 
-  github.com/Quad-Linux/models/79904e0ae7441f02207a3443c8358308dc700287:
-    resolution: {tarball: https://codeload.github.com/Quad-Linux/models/tar.gz/79904e0ae7441f02207a3443c8358308dc700287}
+  github.com/Quad-Linux/models/eae84f287ae4c4fcbfdab426bca6eca61eff13a3:
+    resolution: {tarball: https://codeload.github.com/Quad-Linux/models/tar.gz/eae84f287ae4c4fcbfdab426bca6eca61eff13a3}
     name: '@quados/models'
     version: 1.0.0
     dependencies:
