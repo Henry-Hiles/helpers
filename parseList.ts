@@ -1,6 +1,6 @@
 import { Package } from "@quados/models"
 
-export default (output: string): { pkg: Package } =>
+export const parseList = (output: string): { pkg: Package } =>
     output
         .split("\n")
         .filter((line) => line.length > 0)

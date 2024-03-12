@@ -5,6 +5,7 @@
     "author": "Henry-Hiles",
     "license": "GPL-3.0-only",
     "type": "module",
+    "main": "index.ts",
     "packageManager": "pnpm@8.14.0",
     "devDependencies": {
         "@types/node": "^20.11.25"
