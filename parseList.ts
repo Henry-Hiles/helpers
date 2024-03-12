@@ -18,10 +18,9 @@ export default (output: string): { pkg: Package } =>
         }, {} as { pkg: Package })
 
 const normalizeString = (inputString: string): string => {
-    let regexedString = inputString.replace(/[\s'-]/g, "")
-    let chars = regexedString.split("")
+    let chars = inputString.split("")
 
-    chars[0] = chars[0].toLowerCase()
+    if (chars[1] == chars[1].toLowerCase()) chars[0] = chars[0].toLowerCase()
 
     for (let i = 1; i < chars.length; i++) {
         if (chars[i - 1] === " " || chars[i - 1] === "-") {
@@ -29,5 +28,5 @@ const normalizeString = (inputString: string): string => {
         }
     }
 
-    return chars.join("")
+    return chars.join("").replace(/[\s'-]/g, "")
 }
