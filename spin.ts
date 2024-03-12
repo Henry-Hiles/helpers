@@ -1,7 +1,7 @@
 import chalk from "chalk"
 import ora from "ora"
 
-export default async function spin<Type>(
+export async function spin<Type>(
     message: string,
     promise: Promise<Type>
 ): Promise<Type> {
