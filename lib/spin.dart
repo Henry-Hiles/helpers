@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cli_spin/cli_spin.dart';
 import 'package:io/ansi.dart';
 
@@ -9,6 +11,6 @@ Future<T> spin<T>(String message, Future<T> future) async {
     return result;
   } catch (error, stack) {
     spinner.fail(red.wrap("An error occurred: $error\n\nStacktrace: $stack"));
-    rethrow;
+    exit(0);
   }
 }
