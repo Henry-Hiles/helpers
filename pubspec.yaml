@@ -8,6 +8,8 @@ environment:
 
 dependencies:
     cli_spin: ^1.0.1
+    fast_immutable_collections: ^10.2.4
+    io: ^1.0.4
 
 dev_dependencies:
     lints: ^3.0.0
