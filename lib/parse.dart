@@ -29,5 +29,5 @@ String normalizeString(String input) {
     }
   }
 
-  return chars.join("").replaceAll(RegExp(r"[\s']"), "");
+  return chars.join("").replaceAll(RegExp(r"[^\s]"), "");
 }
