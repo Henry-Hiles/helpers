@@ -6,5 +6,5 @@ Directory getConfigDir() => Directory(join(
           join(Platform.environment["HOME"] ?? "~", ".config"),
       "quados",
     ));
-File getPackagesFile() => File(join(getConfigDir().path, "packages.dart"));
+File getPackagesFile() => File(join(getConfigDir().path, "packages.lock"));
 File getConfigFile() => File(join(getConfigDir().path, "config.dart"));
