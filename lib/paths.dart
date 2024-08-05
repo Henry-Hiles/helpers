@@ -7,6 +7,6 @@ final configDir = Directory(join(
   "quados",
 ));
 
-final schemaFile = File(join(cacheHome.absolute.path, "schema.quad.yaml"));
+final schemaFile = File(join(cacheHome.absolute.path, "schema.quad.json"));
 
 final configFile = File(join(configDir.path, "config.dart"));
