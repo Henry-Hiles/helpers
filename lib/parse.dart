@@ -19,6 +19,7 @@ Map<String, Package> parseList(String output) =>
     ));
 
 String normalizeString(String input) {
+  if (input.isEmpty) return "";
   final chars = input.split("");
 
   if (chars[1] == chars[1].toLowerCase()) chars[0] = chars[0].toLowerCase();
