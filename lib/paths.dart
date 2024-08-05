@@ -1,10 +1,14 @@
 import "dart:io";
 import "package:path/path.dart";
+import "package:xdg_directories/xdg_directories.dart";
 
 Directory getConfigDir() => Directory(join(
-      Platform.environment["XDG_CONFIG_HOME"] ??
-          join(Platform.environment["HOME"] ?? "~", ".config"),
+      configHome.absolute.path,
       "quados",
     ));
-File getPackagesFile() => File(join(getConfigDir().path, "packages.lock"));
-File getConfigFile() => File(join(getConfigDir().path, "config.dart"));
+
+File getSchemaFile() => File(join(cacheHome.absolute.path, "packages.lock"))
+  ..createSync(recursive: true);
+
+File getConfigFile() =>
+    File(join(getConfigDir().path, "config.dart"))..createSync(recursive: true);
