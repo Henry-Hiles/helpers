@@ -7,6 +7,8 @@ final configDir = Directory(join(
   "quados",
 ));
 
-final schemaFile = File(join(cacheHome.absolute.path, "schema.quad.json"));
+final schemaFile = File(join(cacheHome.absolute.path, "schema.quad.json"))
+  ..createSync(recursive: true);
 
-final configFile = File(join(configDir.path, "config.dart"));
+final configFile = File(join(configDir.path, "config.yaml"))
+  ..createSync(recursive: true);

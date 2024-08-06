@@ -30,5 +30,5 @@ String normalizeString(String input) {
     }
   }
 
-  return chars.join("").replaceAll(RegExp(r"[\W]"), "");
+  return chars.join("").replaceAll(RegExp(r"\W "), "");
 }
